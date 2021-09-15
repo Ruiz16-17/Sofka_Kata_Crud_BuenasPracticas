@@ -1,13 +1,20 @@
 import React, { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 
-export const AddMotoForm = ({ addMoto }) => {
+export const EditMotoForm = ({currentMoto, updateMoto}) => {
 
-    const { register, errors, handleSubmit } = useForm();
+    const {register, errors, handleSubmit,setValue} = useForm({
+        defaultValues : currentMoto
+    });
 
-    const onSubmit = (moto, event) => {
+    setValue('marca',currentMoto.name);
+    setValue('color',currentMoto.username);
+    setValue('modelo',currentMoto.name);
 
-        addMoto(moto);
+    const onSubmit = (moto,event) => {
+
+        moto = currentMoto;
+        updateMoto(currentMoto,moto);
         event.target.reset();
     }
 
@@ -60,7 +67,7 @@ export const AddMotoForm = ({ addMoto }) => {
                 <div>
                     {errors?.name?.message}
                 </div>
-                <button>Añadir nueva moto</button>
+                <button>Editar moto</button>
             </form>
         </Fragment>
     )
